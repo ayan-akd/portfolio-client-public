@@ -9,12 +9,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
-import { TProjectExtended } from "@/app/(dashboardLayout)/dashboard/projects/page";
+import { TProject } from "@/types/types";
 
 export default function ProjectCard({
   project,
 }: {
-  project: TProjectExtended;
+  project: TProject;
 }) {
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 flex flex-col h-full">
