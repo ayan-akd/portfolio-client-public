@@ -1,47 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ProjectCard from "../projects-components/ProjectsCard";
-import { TProjectExtended } from "@/app/(dashboardLayout)/dashboard/projects/page";
+import { TProject } from "@/types/types";
 
-export default function FeaturedProjects() {
-  const [projects, setProjects] = useState<TProjectExtended[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export default function FeaturedProjects({ data:projects }: { data: TProject[] }) {
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        setIsLoading(true);
-        const res = await fetch("/api/projects", {
-          cache: 'no-store',
-          next: { revalidate: 0 }
-        });
-        const data = await res.json();
-        data.data.reverse();
-        setProjects(data.data.slice(0, 3));
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <section className="py-16 container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((n) => (
-            <div key={n} className="h-[400px] animate-pulse bg-muted rounded-lg"></div>
-          ))}
-        </div>
-      </section>
-    );
-  }
   
   const container = {
     hidden: { opacity: 0 },

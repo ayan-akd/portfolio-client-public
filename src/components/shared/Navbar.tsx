@@ -23,6 +23,10 @@ const linkList = [
     href: "/projects",
   },
   {
+    name: "Blogs",
+    href: "/blogs",
+  },
+  {
     name: "Contact",
     href: "/contact",
   },

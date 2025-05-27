@@ -15,13 +15,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { baseUrl } from "@/utils/authOptions";
+import { createMessage } from "@/services/public";
 
 const formSchema = z.object({
-    name: z.string().min(1, "Name is required"),
-    email: z.string().email("Invalid email address"),
-    message: z.string().min(1, "Message is required"),
-  });
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  message: z.string().min(1, "Message is required"),
+});
 
 export default function ContactForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -33,33 +33,21 @@ export default function ContactForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      fetch(`${baseUrl}/api/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      })
-      .then((response) => {
-        if (response.ok) {
-          toast.success("Message sent successfully!");
-          form.reset();
-        } else {
-          throw new Error('Failed to send message');
-        }
-      })
-      .catch((error) => {
-        console.error("Form submission error", error);
-        toast.error("Failed to submit the form. Please try again.");
-      });
+      const res = await createMessage(values);
+      console.log(res);
+      if (res?.success) {
+        toast.success("Message sent successfully!");
+        form.reset();
+      } else {
+        toast.error("Failed to send message");
+      }
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.");
     }
   }
-  
 
   return (
     <Form {...form}>

@@ -1,5 +1,5 @@
-import { baseUrl } from "@/utils/authOptions";
 import ProjectDetailsCard from "@/components/projects-components/ProjectDetailsCard";
+import { getSingleProjectData } from "@/services/public";
 
 //generate meta data
 export const generateMetadata = async ({
@@ -8,14 +8,12 @@ export const generateMetadata = async ({
   params: Promise<{ projectId: string }>;
 }) => {
   const { projectId } = await params;
-  const res = await fetch(`${baseUrl}/api/projects/${projectId}`);
-  const { data: project } = await res.json();
+  const { data: project } = await getSingleProjectData(projectId);
   return {
     title: project?.title,
     description: project?.description,
   };
-}
-
+};
 
 export default async function ProjectDetails({
   params,
@@ -23,9 +21,8 @@ export default async function ProjectDetails({
   params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = await params;
-  
-  const res = await fetch(`${baseUrl}/api/projects/${projectId}`);
-  const {data:project} = await res.json();
+
+  const { data: project } = await getSingleProjectData(projectId);
 
   return (
     <div className="min-h-screen mx-auto py-16 px-4">

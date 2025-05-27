@@ -29,6 +29,12 @@ const projectSchema = new Schema<TProject>({
     type: String,
     required: true,
   },
+  videoLink: {
+    type: String,
+  },
+  serial: {
+    type: Number,
+  }
 });
 
 export const ProjectModel =
