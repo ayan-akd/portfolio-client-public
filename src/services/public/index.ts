@@ -12,6 +12,7 @@ export const getAboutData = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 60 },
     });
 
     const result = await res.json();
@@ -29,6 +30,7 @@ export const getSkillsData = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 60 },
     });
     const result = await res.json();
     return result;
@@ -44,6 +46,7 @@ export const getProjectsData = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 60 },
     });
     const result = await res.json();
     return result;
@@ -74,6 +77,7 @@ export const getBlogsData = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 60 },
     });
     const result = await res.json();
     return result;
@@ -89,6 +93,7 @@ export const getSingleBlogData = async (id: string) => {
       headers: {
         "Content-Type": "application/json",
       },
+      next: { revalidate: 60 },
     });
     const result = await res.json();
     return result;
