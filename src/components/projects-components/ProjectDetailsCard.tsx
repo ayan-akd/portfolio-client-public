@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { TProject } from "@/types/types";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
-import Autoplay from "embla-carousel-autoplay"
 import {
   Carousel,
   CarouselContent,
@@ -32,11 +31,6 @@ export default function ProjectDetailsCard({ project }: { project: TProject }) {
 
       <div className="w-full px-3 md:px-0">
         <Carousel className="w-full"
-          plugins={[
-            Autoplay({
-              delay: 2000,
-            }),
-          ]}
         >
           <CarouselContent>
             {project.images.map((image, index) => (
